@@ -1,3 +1,11 @@
+'''
+Assignment L1
+
+We need to calculate the size of a weapon's "attack area". With a 1.0 meter sword, for example, a player can attack in an area of 3.14 square meters around them. You can use the area_of_circle function to do that calculation.
+
+Fix the bug on line 13 by calling the area_of_circle function with the spear_length as input and store the result in the spear_area variable.
+'''
+
 def area_of_circle(radius):
     pi = 3.14
     area = pi * radius * radius
@@ -21,7 +29,7 @@ print("Spear length:", spear_length, "meters.")
 print("Spear attack area:", spear_area, "square meters")
 
 '''
-Assignment
+Assignment L5
 
 We need to calculate the total damage from a combo of three damaging attacks. Complete the triple_attack function by returning the sum of its parameters, damage_one, damage_two, and damage_three.
 
@@ -54,7 +62,7 @@ print(second_triple_attack_damage, "points of damage dealt!")
 print("=====================================")
 
 '''
-Assignment
+Assignment L6
 
 There's a problem in the get_title function! It's supposed to calculate the title value and return it to the caller. Instead, it's barbarically printing the value to the console.
 
@@ -84,7 +92,19 @@ test("Gandalf", "The Grey", "wizard")
 test("Aragorn", "Son of Arathorn", "ranger")
 
 '''
-Assignment
+Assignment L7
+
+There's a bug! Run the code and read the printed error, then fix it.
+'''
+
+def main():
+    print("Fantasy Quest is booting up...")
+    print("Game is running!")
+
+main()
+
+'''
+Assignment L11
 
 Enough Discord talk, back to writing code.
 
@@ -113,7 +133,7 @@ test(104)
 test(112)
 
 '''
-Assignment
+Assignment L15
 
 Enough about solution mechanics, let's write more code.
 
@@ -141,7 +161,7 @@ test(100)
 test(33)
 
 '''
-Assignment
+Assignment L18
 
 Complete the become_warrior function. It accepts 2 inputs: the full_name string, and the power integer. It should return 2 values: a "title" string and a "new power" integer.
 '''
@@ -169,7 +189,7 @@ def test(input1, input2):
 main()
 
 '''
-Assignment
+Assignment L21
 
 Complete the get_punched and get_slashed functions. They should both:
 
@@ -227,7 +247,7 @@ test(300, 3)
 test(200, 1)
 
 '''
-Assignment
+Assignment C1
 
 Complete the curse function. It accepts a weapon_damage parameter and returns two values:
 
@@ -263,7 +283,7 @@ def main():
 main()
 
 '''
-Assignment
+Assignment C2
 
 Complete the enchant_and_attack function. It creates a new "enchanted" name for a weapon and calculates how much damage the enchanted weapon will deal to a targeted enemy.
 

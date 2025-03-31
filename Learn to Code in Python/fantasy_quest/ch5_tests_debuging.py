@@ -2,7 +2,7 @@
 #main_test.py starts with: from main import *
 
 '''
-Assignment
+Assignment L1
 
 Complete the total_xp function. It accepts two integers as input:
 
@@ -73,7 +73,7 @@ if "__RUN__" in globals():
 main()
 
 '''
-Assignment
+Assignment L3
 
 Complete the take_magic_damage function. It should return the new health after calculating how much magic-type damage the player takes. Here is a description of the arguments:
 
@@ -144,7 +144,7 @@ if "__RUN__" in globals():
 main()
 
 '''
-Assignment
+Assignment L7
 
 Let's complete the unlock_achievement function. It accepts 3 arguments:
 
