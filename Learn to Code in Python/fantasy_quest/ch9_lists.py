@@ -552,3 +552,1151 @@ def main():
 
 
 main()
+
+'''
+Assignment L15
+
+Our players want a way to see their strongest attack from their last combat. Let's add another function to analyze data from our combat log.
+
+Complete the find_max function that looks at each number in the nums list and returns the maximum value. If no maximum is found, it just returns negative infinity. I've added it for you as the starting value of max_so_far.
+'''
+
+def find_max(nums):
+    max_so_far = float("-inf")
+    for i in nums:
+        if i > max_so_far:
+            i=max_so_far = i
+    return max_so_far
+
+run_cases = [([1, 2, 3, 4, 5], 5), ([1, 2, 300, 4, 5], 300)]
+
+submit_cases = run_cases + [
+    ([1, 20, 3, 4, 5], 20),
+    ([-1, 2, 3, 4, 5], 5),
+    ([1, 2, 3, 21, 18], 21),
+    ([], float("-inf")),
+    ([-1, -2, -3, -4, -5], -1),
+]
+
+
+def test(input1, expected_output):
+    print("---------------------------------")
+    print(f"Inputs: {input1}")
+    print(f"Expecting: {expected_output}")
+    result = find_max(input1)
+    print(f"Actual: {result}")
+    if result == expected_output:
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
+
+'''
+Assignment L16
+
+Inside the loop in the get_odd_numbers function, use the modulo operator to check if each number, i, is odd. If a number is odd, append it to the odd_numbers list. The function already returns the odd_numbers list for you. num is an integer.
+'''
+
+def get_odd_numbers(num):
+    odd_numbers = []
+
+    for i in range(0, num):
+        # don't touch above this line
+        if i % 2 == 1:
+            odd_numbers.append(i)
+
+    # don't touch below this line
+
+    return odd_numbers
+
+run_cases = [(10, [1, 3, 5, 7, 9]), (20, [1, 3, 5, 7, 9, 11, 13, 15, 17, 19])]
+
+submit_cases = run_cases + [
+    (0, []),
+    (1, []),
+    (2, [1]),
+    (300, [i for i in range(1, 300, 2)]),
+]
+
+
+def test(input1, expected_output):
+    print("---------------------------------")
+    print(f"Inputs: {input1}")
+    print(f"Expecting: {expected_output}")
+    result = get_odd_numbers(input1)
+    print(f"Actual: {result}")
+    if result == expected_output:
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
+
+'''
+Assignment L17
+
+Complete the given get_champion_slices function. It takes a list of champions and should return three new lists based on the given champions:
+
+    First, return a slice of the champions list that starts with the third champion and goes to the end of the list.
+    Next, return a slice of the champions list that starts at the beginning of the list and includes all champions except for the very last champion.
+    Last, return a slice of the champions list that only includes the champions in even numbered indexes.
+
+'''
+
+def get_champion_slices(champions):
+    return champions[2:], champions[:-1], champions[::1]
+
+run_cases = [
+    (
+        ["Thrundar", "Morgate", "Gandolfo", "Thraine", "Norwad", "Gilforn"],
+        (
+            ["Gandolfo", "Thraine", "Norwad", "Gilforn"],
+            ["Thrundar", "Morgate", "Gandolfo", "Thraine", "Norwad"],
+            ["Thrundar", "Gandolfo", "Norwad"],
+        ),
+    ),
+    (
+        ["Frank", "Dennis", "Sweet Dee", "Mac", "Charlie"],
+        (
+            ["Sweet Dee", "Mac", "Charlie"],
+            ["Frank", "Dennis", "Sweet Dee", "Mac"],
+            ["Frank", "Sweet Dee", "Charlie"],
+        ),
+    ),
+]
+
+submit_cases = run_cases + [
+    (([]), ([], [], [])),
+    (
+        (["John", "Sydney", "Spencer", "Bill", "Matthew", "Brandon", "Tony"]),
+        (
+            ["Spencer", "Bill", "Matthew", "Brandon", "Tony"],
+            ["John", "Sydney", "Spencer", "Bill", "Matthew", "Brandon"],
+            ["John", "Spencer", "Matthew", "Tony"],
+        ),
+    ),
+]
+
+
+def test(input1, expected_output):
+    print("-" * 40)
+    print(f"Input:\n{input1}")
+    print(f"Expecting:\n{expected_output}")
+    try:
+        slice_1, slice_2, slice_3 = get_champion_slices(input1)
+        result = (slice_1, slice_2, slice_3)
+    except Exception as e:
+        print(f"Error: {e}")
+        return False
+    print(f"Actual:\n{result}")
+    if result == expected_output:
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
+
+'''
+Assignment L18
+
+Fantasy Quest allows users to keep lists of their favorite items. Your job is to finish the concatenate_favorites function. It takes three different lists - the player's favorite_weapons, favorite_armor and favorite_items.
+
+    Create a new list that combines the lists favorite_weapons, favorite_armor, and favorite_items in this order.
+    Return the list containing the combined favorites.
+
+'''
+
+def concatenate_favorites(favorite_weapons, favorite_armor, favorite_items):
+    return favorite_weapons + favorite_armor + favorite_items
+
+run_cases = [
+    (
+        ["sword", "dagger"],
+        ["bracers", "helmet"],
+        ["feather", "iron bars"],
+        (["sword", "dagger", "bracers", "helmet", "feather", "iron bars"]),
+    ),
+]
+
+submit_cases = run_cases + [
+    (
+        ["lance"],
+        ["shield"],
+        ["potions"],
+        (["lance", "shield", "potions"]),
+    ),
+    (
+        ["bow", "staff"],
+        ["breastplate"],
+        ["scrolls", "bedroll"],
+        (["bow", "staff", "breastplate", "scrolls", "bedroll"]),
+    ),
+    ([], [], [], ([])),
+]
+
+
+def test(input1, input2, input3, expected_output):
+    print("---------------------------------")
+    print(f"Inputs: {input1}, {input2}, {input3}")
+    print(f"Expecting: {expected_output}")
+    result = concatenate_favorites(input1, input2, input3)
+    print(f"Actual: {result}")
+    if result == expected_output:
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
+
+'''
+Assignment L19
+
+Our players have requested an in-game feature that will allow them to type in a weapon name to check if it's in the list of top weapons in the realm.
+
+Complete the is_top_weapon function. It should return True if the weapon is in the top_weapons list, otherwise it should return False.
+
+'''
+
+def is_top_weapon(weapon):
+    top_weapons = [
+        "sword of justice",
+        "sword of slashing",
+        "stabby daggy",
+        "great axe",
+        "silver bow",
+        "spellbook",
+        "spiked knuckles",
+    ]
+
+    # don't touch above this line
+
+    return weapon in top_weapons
+
+run_cases = [
+    ("sword of justice", True),
+    ("bronze mace", False),
+    ("sword of slashing", True),
+]
+
+submit_cases = run_cases + [
+    ("", False),
+    ("great axe", True),
+    ("silver bow", True),
+    ("golden spear", False),
+    ("spiked knuckles", True),
+    ("spellbook", True),
+]
+
+
+def test(input1, expected_output):
+    print("---------------------------------")
+    print(f"Input:")
+    print(f" * Weapon: {input1}")
+    print(f"Expecting: {expected_output}")
+    result = is_top_weapon(input1)
+    print(f"Actual: {result}")
+    if result == expected_output:
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
+
+'''
+Assignment L20
+
+In Fantasy Quest there is a list of strongholds on the map that players can visit to defeat powerful bosses. Let's update the trim_strongholds function to:
+
+    Delete the first stronghold from the list
+    Delete the last two strongholds from the list
+
+'''
+
+def trim_strongholds(strongholds):
+    del strongholds[0]
+    del strongholds[-2:]
+    return strongholds
+
+run_cases = [
+    (
+        [
+            "Rivendale",
+            "The Morgoth Mountains",
+            "The Lonely Island",
+            "Mordia",
+            "Mordane",
+            "Gondolin",
+        ],
+        [
+            "The Morgoth Mountains",
+            "The Lonely Island",
+            "Mordia",
+        ],
+    ),
+]
+
+submit_cases = run_cases + [
+    (
+        [
+            "Pogsmeade",
+            "Dogwarts",
+            "The Leaky Pot",
+            "The Screaming Hut",
+        ],
+        [
+            "Dogwarts",
+        ],
+    ),
+    (
+        [
+            "Midgard",
+            "Cosmo Canyon",
+            "Nibelheim",
+            "Costa del Sol",
+            "Pallet Town",
+            "Viridian City",
+            "Salamandastron",
+            "Redwall Abbey",
+            "Fisherman's Horizon",
+            "Waterdeep",
+            "Elturel",
+            "Candlekeep",
+            "Chult",
+            "Eorzea",
+            "Ratchet",
+            "Orgrimmar",
+            "Stormwind",
+            "Shattrath",
+            "Dalaran",
+        ],
+        [
+            "Cosmo Canyon",
+            "Nibelheim",
+            "Costa del Sol",
+            "Pallet Town",
+            "Viridian City",
+            "Salamandastron",
+            "Redwall Abbey",
+            "Fisherman's Horizon",
+            "Waterdeep",
+            "Elturel",
+            "Candlekeep",
+            "Chult",
+            "Eorzea",
+            "Ratchet",
+            "Orgrimmar",
+            "Stormwind",
+        ],
+    ),
+]
+
+
+def test(input1, expected_output):
+    print("---------------------------------")
+    print(f"    Input: {input1}")
+    print(f"Expecting: {expected_output}")
+    trim_strongholds(input1)
+    print(f"   Actual: {input1}")
+    if input1 == expected_output:
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
+
+'''
+Assignment L21
+
+The Fantasy Quest character system needs a list of "heroes" to be able to run the game properly. Someone wrote some pretty nasty code, and the code in question creates a heroes list where every 3rd index defines a new hero. First their name, then their age, then whether or not they're an "elf".
+
+Fix the structure of the heroes list by changing it into a list of tuples, where each tuple represents one hero and contains their data in the same order.
+'''
+
+def get_heroes():
+    heroes = [
+        ("Glorfindel",
+        2093,
+        True),
+        ("Gandalf",
+        1054,
+        False),
+        ("Gimli",
+        389,
+        False),
+        ("Aragorn",
+        87,
+        False),
+    ]
+
+    return heroes
+
+run_cases = [
+    (
+        [
+            (
+                "Glorfindel",
+                2093,
+                True,
+            ),
+            (
+                "Gandalf",
+                1054,
+                False,
+            ),
+            (
+                "Gimli",
+                389,
+                False,
+            ),
+            (
+                "Aragorn",
+                87,
+                False,
+            ),
+        ]
+    ),
+]
+
+submit_cases = run_cases
+
+
+def test(expected_output):
+    print("---------------------------------")
+    passed = True
+    result = get_heroes()
+    if not isinstance(result, list):
+        print("Expected result to be a list")
+        return False
+
+    for i, hero in enumerate(expected_output):
+        print(f"Expected: {hero} at index {i}")
+        if i >= len(result):
+            print(f"Actual: None at index {i}")
+            print("Fail")
+            passed = False
+            continue
+        print(f"Actual: {result[i]} at index {i}")
+        if hero != result[i]:
+            print("Fail")
+            passed = False
+        else:
+            print("Pass")
+    return passed
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
+
+'''
+Assignment L22
+
+Let's add another function to our inventory system. Write a function that returns the first element from a list. If the list is empty then return the string ERROR instead.
+
+'''
+
+def get_first_item(items):
+    if len(items) == 0:
+        return "ERROR"
+    return items[0]
+
+run_cases = [
+    ([1, 2], 1),
+    (["Healing Potion"], "Healing Potion"),
+    ([], "ERROR"),
+]
+
+submit_cases = run_cases + [
+    (["Iron Ore", "Iron Bar", "Scimitar"], "Iron Ore"),
+    (["Apple", "Banana", "Cherry"], "Apple"),
+    ([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [1, 2, 3]),
+    ([False, True, False], False),
+]
+
+
+def test(input1, expected_output):
+    print("---------------------------------")
+    print(f"Input: {input1}")
+    print(f"Expecting: {expected_output}")
+    result = get_first_item(input1)
+    print(f"Actual: {result}")
+    if result == expected_output:
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
+
+'''
+Assignment L23
+
+Some of our players would like to view their inventories in reverse order.
+
+Let's write a function that takes a list as an input and returns a new list except all the items are in reverse order.
+
+For example:
+
+[1, 2, 3] -> [3, 2, 1]
+['a', 'b', 'c', 'd'] -> ['d', 'c', 'b', 'a']
+
+'''
+
+def reverse_list(items):
+    return items[::-1]
+
+run_cases = [
+    (
+        ["Shortsword", "Healing Potion", "Iron Breastplate", "Kite Shield"],
+        ["Kite Shield", "Iron Breastplate", "Healing Potion", "Shortsword"],
+    ),
+    ([1, 2, 300, 4, 5], [5, 4, 300, 2, 1]),
+]
+
+submit_cases = run_cases + [
+    ([], []),
+    (["a"], ["a"]),
+    ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]),
+    (
+        ["apple", "banana", "cherry", "date", "elderberry"],
+        ["elderberry", "date", "cherry", "banana", "apple"],
+    ),
+    (["hello", "world"], ["world", "hello"]),
+]
+
+
+def test(input, expected_output):
+    print("---------------------------------")
+    print(f"Input list: {input}")
+    print(f"Expected reversed list: {expected_output}")
+    result = reverse_list(input)
+    print(f"Actual reversed list: {result}")
+    if result == expected_output:
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
+
+'''
+Assignment L24
+
+We need to filter the profanity out of our game's live chat feature! Complete the filter_messages function. It takes a list of chat messages as input and returns 2 new lists:
+
+    A list of the same messages but with all instances of the word dang removed.
+    A list containing the number of dang words that were removed from the message at that particular index.
+
+Here are some examples:
+
+messages = ["dang it bobby!", "look at it go"]
+filter_messages(messages) # returns ["it bobby!", "look at it go"], [1, 0]
+
+messages2 = ["That's the bloody dang Reaper of Mars...", "Pax au Telemanus!", "I was never taught how to use a dang razor!"]
+filter_messages(messages2) # returns ["That's the bloody Reaper of Mars...", "Pax au Telemanus!", "I was never taught how to use a razor!"], [1, 0, 1]
+'''
+
+def filter_messages(messages):
+    cleaned = []
+    count = []
+    for i in messages:
+        count.append(i.count("dang"))
+        cleaned_message = i.replace("dang ", "")
+        cleaned_message = cleaned_message.replace(" dang", "")
+        cleaned.append(cleaned_message)
+    return cleaned, count
+
+run_cases = [
+    (
+        ["darn it", "this dang thing won't work", "lets fight one on one"],
+        ["darn it", "this thing won't work", "lets fight one on one"],
+        [0, 1, 0],
+    ),
+]
+
+submit_cases = run_cases + [
+    (
+        [
+            "well dang it",
+            "dang the whole dang thing",
+            "kill that knight, dang it",
+            "get him!",
+            "donkey kong",
+            "oh come on, get them",
+            "run away from the dang baddies",
+        ],
+        [
+            "well it",
+            "the whole thing",
+            "kill that knight, it",
+            "get him!",
+            "donkey kong",
+            "oh come on, get them",
+            "run away from the baddies",
+        ],
+        [1, 2, 1, 0, 0, 0, 1],
+    ),
+]
+
+
+def test(input, expected_output1, expected_output2):
+    print("---------------------------------")
+    print(f"Input:")
+    print(f" * messages: {input}")
+    print("Expecting:")
+    print(f" * filtered messages: {expected_output1}")
+    print(f" * words removed: {expected_output2}")
+    print("Actual:")
+    try:
+        result = filter_messages(input)
+        print(f" * filtered messages: {result[0]}")
+        print(f" * words removed: {result[1]}")
+    except Exception as e:
+        print(f"Error: {e}")
+        print("Fail")
+        return False
+
+    if result == (expected_output1, expected_output2):
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
+
+'''
+Assignment L25
+
+Complete the split_players_into_teams function.
+
+It accepts a list of players (strings representing their names) and returns two lists in this order:
+
+    A new list of all the players with even-numbered indexes in the original list.
+    A new list of all the players with odd-numbered indexes in the original list.
+
+Use a slice with a "step" to create two new lists from the players list. Don't be afraid to consult your spellbook for list slicing help!
+'''
+
+def split_players_into_teams(players):
+    even_list = players[0::2]
+    odd_list = players[1::2]
+    return even_list, odd_list
+
+run_cases = [
+    (
+        [
+            "Harry",
+            "Hermione",
+            "Ron",
+            "Ginny",
+            "Fred",
+            "Neville",
+            "Draco",
+            "Luna",
+            "Cho",
+            "Gregory",
+            "Lee",
+            "Michael",
+            "Lavender",
+            "Frank",
+            "Anthony",
+            "Allan",
+        ],
+        (
+            ["Harry", "Ron", "Fred", "Draco", "Cho", "Lee", "Lavender", "Anthony"],
+            [
+                "Hermione",
+                "Ginny",
+                "Neville",
+                "Luna",
+                "Gregory",
+                "Michael",
+                "Frank",
+                "Allan",
+            ],
+        ),
+    ),
+    (["Mike", "Walter", "Skyler", "Tuco"], (["Mike", "Skyler"], ["Walter", "Tuco"])),
+]
+
+submit_cases = run_cases + [
+    (["Alice", "Bob", "Charlie", "David"], (["Alice", "Charlie"], ["Bob", "David"])),
+    ([], ([], [])),
+]
+
+
+def test(input1, expected_output):
+    print("---------------------------------")
+    print(f"Inputs: {input1}")
+    print(f"Expecting: {expected_output}")
+    result = split_players_into_teams(input1)
+    print(f"Actual: {result}")
+    if result == expected_output:
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
+
+'''
+Assignment
+
+Complete the check_ingredient_match function. It accepts two lists of strings:
+
+    recipe: The list of ingredients needed.
+    ingredients: The list of ingredients the character has.
+
+It should return two values:
+
+    A float representing the percentage of required ingredients the character has.
+    A new list of ingredients the character is missing but that are required.
+
+For example, if these were the lists:
+
+recipe = ["Dragon Scale", "Unicorn Hair", "Phoenix Feather", "Troll Tusk"]
+ingredients = ["Dragon Scale", "Phoenix Feather", "Troll Tusk"]
+
+percentage, missing_ingredients = check_ingredient_match(recipe, ingredients)
+print(percentage, missing_ingredients)
+# Prints: 75.00 ["Unicorn Hair"]
+'''
+
+def check_ingredient_match(recipe, ingredients):
+    count = 0
+    needs = []
+    
+    for i in recipe:
+        if i in ingredients:
+            count += 1
+        else:
+            needs.append(i)
+            
+    return count*100/len(recipe) , needs
+
+run_cases = [
+    (
+        [
+            "Mandrake Root",
+            "Griffin Feather",
+            "Elf Dust",
+            "Goblin Ear",
+        ],
+        [
+            "Elf Dust",
+            "Goblin Ear",
+        ],
+        (50.0, ["Mandrake Root", "Griffin Feather"]),
+    ),
+    (
+        [
+            "Dragon Scale",
+            "Unicorn Hair",
+            "Phoenix Feather",
+            "Troll Tusk",
+            "Mandrake Root",
+            "Griffin Feather",
+            "Elf Dust",
+            "Goblin Ear",
+        ],
+        [
+            "Dragon Scale",
+            "Phoenix Feather",
+            "Mandrake Root",
+            "Griffin Feather",
+            "Elf Dust",
+            "Goblin Ear",
+        ],
+        (75.0, ["Unicorn Hair", "Troll Tusk"]),
+    ),
+]
+
+submit_cases = run_cases + [
+    (
+        [
+            "Dragon Scale",
+            "Phoenix Feather",
+            "Troll Tusk",
+            "Mandrake Root",
+            "Griffin Feather",
+            "Elf Dust",
+            "Goblin Ear",
+            "Unicorn Hair",
+        ],
+        [
+            "Goblin Ear",
+            "Elf Dust",
+            "Griffin Feather",
+            "Mermaid Tear",
+            "Goblin Ear",
+            "Phoenix Feather",
+            "Troll Tusk",
+            "Unicorn Hair",
+        ],
+        (
+            75.0,
+            [
+                "Dragon Scale",
+                "Mandrake Root",
+            ],
+        ),
+    ),
+    (
+        [
+            "Orc Tears",
+            "Orge Ear",
+            "Goblin Giggles",
+            "Witch Broom",
+            "Giant Toenail Clipping",
+            "Centipede Foot",
+            "Dog Hair",
+            "Bald Eagle Dandruff",
+        ],
+        [
+            "Unicorn Hair",
+            "Dragon Scale",
+            "Phoenix Feather",
+            "Troll Tusk",
+            "Griffin Feather",
+            "Mandrake Root",
+            "Goblin Ear",
+            "Bald Eagle Dandruff",
+        ],
+        (
+            12.5,
+            [
+                "Orc Tears",
+                "Orge Ear",
+                "Goblin Giggles",
+                "Witch Broom",
+                "Giant Toenail Clipping",
+                "Centipede Foot",
+                "Dog Hair",
+            ],
+        ),
+    ),
+]
+
+
+def test(input1, input2, expected_output):
+    print("---------------------------------")
+    print("Inputs:")
+    print(f" - Recipe: {input1}")
+    print(f" - Ingredients: {input2}")
+    print("")
+    result = check_ingredient_match(input1, input2)
+    print(f"Expecting: {expected_output}")
+    print(f"Actual:    {result}")
+    if result[0] == expected_output[0] and sorted(result[1]) == sorted(
+        expected_output[1]
+    ):
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
