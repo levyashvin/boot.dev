@@ -463,3 +463,329 @@ max_so_far = float("-inf")
 
 You'll also want to keep track of the enemy name associated with the maximum count. I would set the default for that variable to None.
 '''
+
+def get_most_common_enemy(enemies_dict):
+    common_enemy = None
+    enemies_dict[None] = -1
+    for enemy in enemies_dict:
+        if enemies_dict[enemy] > enemies_dict[common_enemy]:
+            common_enemy = enemy
+    return common_enemy
+            
+run_cases = [
+    ({"jackal": 4, "kobold": 3, "soldier": 10, "gremlin": 5}, "soldier"),
+    ({"jackal": 1, "kobold": 3, "soldier": 2, "gremlin": 5}, "gremlin"),
+]
+
+submit_cases = run_cases + [
+    ({"jackal": 2, "gremlin": 7}, "gremlin"),
+    ({"jackal": 3}, "jackal"),
+    ({}, None),
+    ({"kobold": 5, "soldier": 5, "gremlin": 5, "dragon": 5}, "kobold"),
+    ({"jackal": 5, "kobold": 3, "soldier": 10, "gremlin": 5, "dragon": 20}, "dragon"),
+    ({"jackal": 5, "kobold": 3, "soldier": 2, "gremlin": 10, "dragon": 1}, "gremlin"),
+]
+
+
+def test(input1, expected_output):
+    print("---------------------------------")
+    print(f"Inputs: {input1}")
+    print(f"Expecting: {expected_output}")
+    result = get_most_common_enemy(input1)
+    if result == "None":
+        print('Actual: "None"')
+    else:
+        print(f"Actual: {result}")
+    if result == expected_output:
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
+
+'''
+Assignment L10
+
+Complete the get_quest_status function. It accepts a progress dictionary (structure defined above) and returns the character's status in the "bridge_run" quest.
+'''
+
+def get_quest_status(progress):
+    return progress["entity"]["character"]["quests"]["bridge_run"]["status"]
+
+run_cases = [
+    (
+        {
+            "entity": {
+                "character": {
+                    "name": "Sir Galahad",
+                    "quests": {
+                        "bridge_run": {
+                            "status": "In Progress",
+                        },
+                        "talk_to_syl": {
+                            "status": "Completed",
+                        },
+                    },
+                }
+            }
+        },
+        "In Progress",
+    ),
+    (
+        {
+            "entity": {
+                "character": {
+                    "name": "Lady Gwen",
+                    "quests": {
+                        "bridge_run": {
+                            "status": "Completed",
+                        },
+                        "talk_to_syl": {
+                            "status": "In Progress",
+                        },
+                    },
+                }
+            }
+        },
+        "Completed",
+    ),
+]
+
+submit_cases = run_cases + [
+    (
+        {
+            "entity": {
+                "character": {
+                    "name": "Archer Finn",
+                    "quests": {
+                        "bridge_run": {
+                            "status": "Not Started",
+                        },
+                        "talk_to_syl": {
+                            "status": "Completed",
+                        },
+                    },
+                }
+            }
+        },
+        "Not Started",
+    ),
+    (
+        {
+            "entity": {
+                "character": {
+                    "name": "Mage Elara",
+                    "quests": {
+                        "bridge_run": {
+                            "status": "Failed",
+                        },
+                        "talk_to_syl": {
+                            "status": "Completed",
+                        },
+                    },
+                }
+            }
+        },
+        "Failed",
+    ),
+    (
+        {
+            "entity": {
+                "character": {
+                    "name": "Rogue Talon",
+                    "quests": {
+                        "bridge_run": {
+                            "status": "Completed",
+                        },
+                        "talk_to_syl": {
+                            "status": "Not Started",
+                        },
+                    },
+                }
+            }
+        },
+        "Completed",
+    ),
+]
+
+
+def test(input1, expected_output):
+    print("---------------------------------")
+    print(f"Inputs:")
+    print(f" * Progress Dictionary: {input1}")
+    print(f"Expecting: {expected_output}")
+    result = get_quest_status(input1)
+    print(f"Actual: {result}")
+    if result == expected_output:
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
+
+'''
+Assignment L11
+
+Complete the merge function. It accepts two dictionaries as input and returns a single merged dictionary that contains all the keys and values from the input dictionaries.
+
+If a key exists in both dictionaries, the value from the second dictionary should overwrite the value from the first dictionary. Here's the example usage:
+
+two_towers = {"Frodo": 56, "Aragorn": 10}
+rotk = {"Aragorn": 100, "Gandalf": 809}
+merged_dict = merge(two_towers, rotk)
+print(merged_dict)
+# Output: {'Frodo': 56, 'Aragorn': 100, 'Gandalf': 809}
+
+Notice how the key Aragorn's value gets overridden. His sword got upgraded.
+'''
+
+def merge(dict1, dict2):
+    dict12 = {key:dict1[key] for key in dict1}
+    for key in dict2:
+        dict12[key] = dict2[key]
+    return dict12
+
+run_cases = [
+    (
+        {"Goku": 8000, "Vegeta": 7500},
+        {"Piccolo": 3500, "Gohan": 2800},
+        {
+            "Goku": 8000,
+            "Vegeta": 7500,
+            "Piccolo": 3500,
+            "Gohan": 2800,
+        },
+    ),
+    (
+        {"Frieza": 120000, "Cell": 900000},
+        {"Majin_Buu": 1100000, "Broly": 10000},
+        {
+            "Frieza": 120000,
+            "Cell": 900000,
+            "Majin_Buu": 1100000,
+            "Broly": 10000,
+        },
+    ),
+]
+
+submit_cases = run_cases + [
+    ({}, {}, {}),
+    (
+        {
+            "Android_17": 30000,
+            "Android_18": 30000,
+            "Future_Trunks": 9000,
+            "Kid_Trunks": 7000,
+        },
+        {
+            "Android_16": 40000,
+            "Dr_Gero": 10000,
+            "Goten": 6500,
+            "Future_Gohan": 8000,
+        },
+        {
+            "Android_17": 30000,
+            "Android_18": 30000,
+            "Android_16": 40000,
+            "Dr_Gero": 10000,
+            "Future_Trunks": 9000,
+            "Kid_Trunks": 7000,
+            "Goten": 6500,
+            "Future_Gohan": 8000,
+        },
+    ),
+]
+
+
+def test(input1, input2, expected_output):
+    print("---------------------------------")
+    print(f"Inputs:")
+    print(f" * first_half: {input1}")
+    print(f" * second_half: {input2}")
+    result = merge(input1, input2)
+    print(f"Expecting: {expected_output}")
+    print(f"Actual:    {result}")
+    if result == expected_output:
+        print("Pass")
+        return True
+    print("Fail")
+    return False
+
+
+def main():
+    passed = 0
+    failed = 0
+    skipped = len(submit_cases) - len(test_cases)
+    for test_case in test_cases:
+        correct = test(*test_case)
+        if correct:
+            passed += 1
+        else:
+            failed += 1
+    if failed == 0:
+        print("============= PASS ==============")
+    else:
+        print("============= FAIL ==============")
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
+        print(f"{passed} passed, {failed} failed")
+
+
+test_cases = submit_cases
+if "__RUN__" in globals():
+    test_cases = run_cases
+
+main()
